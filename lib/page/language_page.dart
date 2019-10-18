@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_github/i10n/localization_intl.dart';
+import 'package:flutter_github/states/profile_change_notifier.dart';
+import 'package:provider/provider.dart';
 
 class LanguagePage extends StatefulWidget {
   @override
@@ -11,13 +14,14 @@ class LanguagePage extends StatefulWidget {
 class _LanguagePage extends State<LanguagePage> {
   @override
   Widget build(BuildContext context) {
-    void _selectLanguage() {}
+    var localeModel = Provider.of<LocaleModel>(context);
+    var gm = GmLocalizations.of(context);
 
     Widget _buildItem(String language, String value) {
       return ListTile(
         leading: const Icon(Icons.language),
         title: Text(language),
-        onTap: () => _selectLanguage(),
+        // onTap: () => localeModel.locale = value,
       );
     }
 
