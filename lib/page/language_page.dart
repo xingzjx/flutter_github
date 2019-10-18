@@ -14,7 +14,7 @@ class LanguagePage extends StatefulWidget {
 class _LanguagePage extends State<LanguagePage> {
   @override
   Widget build(BuildContext context) {
-    var localeModel = Provider.of<LocaleModel>(context);
+    // var localeModel = Provider.of<LocaleModel>(context);
     var gm = GmLocalizations.of(context);
 
     Widget _buildItem(String language, String value) {
