@@ -21,7 +21,7 @@ class _LanguagePage extends State<LanguagePage> {
       return ListTile(
         leading: const Icon(Icons.language),
         title: Text(language),
-        // onTap: () => localeModel.locale = value,
+        //onTap: () => localeModel.locale = value,
       );
     }
 

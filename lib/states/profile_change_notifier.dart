@@ -21,12 +21,14 @@ class LocaleModel extends ChangeNotifier {
   }
 
   // 获取当前Locale的字符串表示
-  // String locale = "zh_CN";
-  String get locale => locale;
+  String _locale;
+
+  // ignore: unnecessary_getters_setters
+  String get locale => _locale;
 
   // 用户改变APP语言后，通知依赖项更新，新语言会立即生效
-  set locale(String loc) {
-    locale = loc;
+  set locale(String locale) {
+    _locale = locale;
     notifyListeners();
   }
 }
