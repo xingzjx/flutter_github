@@ -14,6 +14,7 @@ class _HomePage extends State<HomePage> {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text('首页'),
+        centerTitle: true,
       ),
       body: new Center(
         child: Icon(
