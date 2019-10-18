@@ -58,7 +58,7 @@ packages:
     source: hosted
     version: "1.2.1"
   build_runner:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: build_runner
       url: "https://pub.flutter-io.cn"
@@ -222,21 +222,14 @@ packages:
     source: hosted
     version: "0.6.1+1"
   json_annotation:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: json_annotation
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.3.0"
-  json_model:
-    dependency: "direct dev"
-    description:
-      name: json_model
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.0.2"
   json_serializable:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: json_serializable
       url: "https://pub.flutter-io.cn"
