@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_github/page/login_page.dart';
+import 'package:flutter_github/common/funs.dart';
+import 'package:flutter_github/http/http_request.dart';
 import 'package:provider/provider.dart';
 
+import 'models/user.dart';
 import 'page/main_page.dart';
 import 'states/profile_change_notifier.dart';
+
+import 'dart:io';
 
 void main() => runApp(MyApp());
 
@@ -15,6 +19,7 @@ class MyApp extends StatelessWidget {
       providers: <SingleChildCloneableWidget>[
         ChangeNotifierProvider.value(value: ThemeModel()),
         ChangeNotifierProvider.value(value: LocaleModel()),
+        ChangeNotifierProvider.value(value: UserModel()),
       ],
       child: Consumer2<ThemeModel, LocaleModel>(
         builder: (BuildContext context, themeModel, localeModel, Widget child) {
@@ -38,6 +43,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   GlobalKey _formKey = new GlobalKey<FormState>();
+  TextEditingController _unameController = new TextEditingController();
+  TextEditingController _pwdController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           children: <Widget>[
             TextFormField(
+                controller: _unameController,
                 autofocus: true,
                 // controller: _unameController,
                 decoration: InputDecoration(
@@ -71,6 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   return v.trim().isNotEmpty ? null : "请输入用户名";
                 }),
             TextFormField(
+                controller: _pwdController,
                 autofocus: true,
                 // controller: _unameController,
                 decoration: InputDecoration(
@@ -100,10 +109,31 @@ class _MyHomePageState extends State<MyHomePage> {
     ); // This trailing comma makes auto-formatting nicer for build methods;
   }
 
-  void _onLogin() {
+  void _onLogin() async {
     print("登入===============111=");
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return MainPage();
-    }));
+    if ((_formKey.currentState as FormState).validate()) {
+      showLoading(context);
+      var user;
+      try {
+        var htttp = HttpRequest(context);
+        user = await htttp.login(_unameController.text, _pwdController.text);
+        Provider.of<UserModel>(context, listen: false).user = user;
+      } catch (e) {
+        //登录失败则提示
+        if (e.response?.statusCode == 401) {
+          showToast("用户名或者密码错误！");
+        } else {
+          showToast(e.toString());
+        }
+      } finally {
+        Navigator.of(context).pop();
+      }
+      if (user != null) {
+        // HttpRequest(context).login(login, pwd);
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return MainPage();
+        }));
+      }
+    }
   }
 }
