@@ -14,27 +14,26 @@ class ThemePage extends StatefulWidget {
 class _ThemePage extends State<ThemePage> {
   @override
   Widget build(BuildContext context) {
-    var themeModel = Provider.of<ThemeModel>(context);
-
-    var gm = GmLocalizations.of(context);
-
-    Widget _buildItem(String language, ColorSwatch value) {
-      return ListTile(
-        title: Text(language),
-        onTap: () => themeModel.theme = value
-      );
-    }
-
     return new Scaffold(
       appBar: new AppBar(
         title: new Text('换肤'),
       ),
       body: ListView(
-        children: <Widget>[
-          _buildItem("红色", Global.themes[0]),
-          _buildItem("蓝色", Global.themes[1]),
-          _buildItem("黄色", Global.themes[2]),
-        ],
+        children: Global.themes.map<Widget>((e) {
+          return GestureDetector(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
+              child: Container(
+                color: e,
+                height: 40,
+              ),
+            ),
+            onTap: () {
+              //主题更新后，MaterialApp会重新build
+              Provider.of<ThemeModel>(context).theme = e;
+            },
+          );
+        }).toList(),
         shrinkWrap: true,
       ),
     );
