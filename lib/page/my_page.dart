@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_github/page/theme_page.dart';
 
 import 'language_page.dart';
 
@@ -31,6 +32,10 @@ class _MyPage extends State<MyPage> {
         ListTile(
           leading: const Icon(Icons.color_lens),
           title: Text("换肤 "),
+          onTap: () =>
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return ThemePage();
+              })),
         ),
         ListTile(
           leading: const Icon(Icons.language),

@@ -3,38 +3,37 @@ import 'package:flutter_github/i10n/localization_intl.dart';
 import 'package:flutter_github/states/profile_change_notifier.dart';
 import 'package:provider/provider.dart';
 
-class LanguagePage extends StatefulWidget {
+class ThemePage extends StatefulWidget {
   @override
-  _LanguagePage createState() {
+  _ThemePage createState() {
     // TODO: implement createState
-    return _LanguagePage();
+    return _ThemePage();
   }
 }
 
-class _LanguagePage extends State<LanguagePage> {
+class _ThemePage extends State<ThemePage> {
   @override
   Widget build(BuildContext context) {
-    var localeModel = Provider.of<LocaleModel>(context);
+    var themeModel = Provider.of<ThemeModel>(context);
 
     var gm = GmLocalizations.of(context);
 
-    Widget _buildItem(String language, String value) {
+    Widget _buildItem(String language, ColorSwatch value) {
       return ListTile(
-        leading: const Icon(Icons.language),
         title: Text(language),
-        onTap: () => localeModel.locale = value,
+        onTap: () => themeModel.theme = value
       );
     }
 
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('语言切换'),
+        title: new Text('换肤'),
       ),
       body: ListView(
         children: <Widget>[
-          _buildItem("中文", "zh_CN"),
-          _buildItem("English", "en_US"),
-          _buildItem("跟随系统", null),
+          _buildItem("红色", Global.themes[0]),
+          _buildItem("蓝色", Global.themes[1]),
+          _buildItem("黄色", Global.themes[2]),
         ],
         shrinkWrap: true,
       ),
